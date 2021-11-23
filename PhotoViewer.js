@@ -70,43 +70,54 @@ function viewAlbum(albumName) {
       var bucketUrl = href + albumBucketName + '/';
   
       var photos = data.Contents.map(function(photo) {
+        
         var photoKey = photo.Key;
         var photoUrl = bucketUrl + encodeURIComponent(photoKey);
-        if (photoKey.includes('_Result')){
-          console.log(photoKey);
-          return getHtml([
-            '<span>',
-              //Div for image
-              '<div style="padding-left: 105px;" >',
-                '<br/>',
-                '<img style="width:225px;height:225px;" src="' + photoUrl + '"/>',
-                
-              '</div>',
-              //Div for image name
-              '<div style="padding-left: 105px;" >',
+        var photoUrlResults = bucketUrl + encodeURIComponent(photoKey.slice(0,-4)+'_Results.jpg');
+        var firstPhoto =  data.Contents[2].Key;
+        console.log(data.Contents[2].Key);
+
+        if (photoKey.includes('image')){
+          if (!photoKey.includes('_Result')){
+            if (photoKey.includes(firstPhoto)){
+              console.log(photoUrl);
+              console.log(photoUrlResults);
+              return getHtml([
                 '<span>',
-                  photoKey.replace(albumPhotosKey, ''),
+                  //Div for image
+                  '<div style="padding-left: 25px; padding-upper: 250px; padding-lower: 250px;text-align: center;" >',
+                    '<hr style="border-width:10px">',
+                    '<img style="padding:40px;width:225px;height:225px;" src="' + photoUrl + '"/>',
+                    '<img style="padding:40px;width:225px;height:225px;" src="' + photoUrl + '"/>',
+                    '<img style="padding:40px;width:225px;height:225px;" src="' + photoUrlResults + '"/>',
+                  '</div>',
+                  //Div for image name
+                  //'<div style="padding-left: 25px;" >',
+                   // '<span>',
+                    //  photoKey.replace(albumPhotosKey, ''),
+                   // '</span>',
+                  //'</div>',
                 '</span>',
-              '</div>',
-            '</span>',
-          ]);
-        } else if (photoKey.includes('image')){
-        return getHtml([
-          '<span>',
-            //Div for image
-            '<div style="padding-left: 25px; padding-upper: 250px;" >',
-              '<br/>',
-              '<img style="width:225px;height:225px;" src="' + photoUrl + '"/>',
-              
-            '</div>',
-            //Div for image name
-            '<div style="padding-left: 25px;" >',
-              '<span>',
-                photoKey.replace(albumPhotosKey, ''),
-              '</span>',
-            '</div>',
-          '</span>',
-        ]);
+              ]);
+            } else{
+              return getHtml([
+                '<span>',
+                  //Div for image
+                  '<div style="padding-left: 25px; padding-upper: 250px; padding-lower: 250px;text-align: center;" >',
+                    '<hr style="border-width:10px">',
+                    '<img style="padding:40px;width:225px;height:225px;" src="' + photoUrl + '"/>',
+                    '<img style="padding:40px;width:225px;height:225px;" src="' + photoUrlResults + '"/>',
+                  '</div>',
+                  //Div for image name
+                  //'<div style="padding-left: 25px;" >',
+                   // '<span>',
+                    //  photoKey.replace(albumPhotosKey, ''),
+                   // '</span>',
+                  //'</div>',
+                '</span>',
+              ]);
+            }
+        }
       }
       });
       var message = photos.length ?
@@ -119,12 +130,14 @@ function viewAlbum(albumName) {
           '</button>',
         '</div>',
         '<div style="text-align: center;">',
+          
           '<h2>',
             'Album: ' + albumName,
           '</h2>',
           message,
         '</div>',
         '<div>',
+        '<br>',
           getHtml(photos),
         '</div>',
         '<div style="text-align: center;">',
