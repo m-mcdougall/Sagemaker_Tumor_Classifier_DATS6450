@@ -45,11 +45,13 @@ function listAlbums() {
           ]) :
           '<p>You do not have any albums. Please Create album.';
         var htmlTemplate = [
+          '<div style="text-align: center;">',
           '<h2 style="margin:10px 0 10px 20px;">Patient Directory</h2>',
           message,
           '<ul>',
             getHtml(albums),
           '</ul>',
+          '</div>',
         ]
         document.getElementById('viewer').innerHTML = getHtml(htmlTemplate);
       }
@@ -88,25 +90,29 @@ function viewAlbum(albumName) {
         '<p>The following photos are present.</p>' :
         '<p>There are no photos in this album.</p>';
       var htmlTemplate = [
-        '<div>',
-          '<button onclick="listAlbums()">',
-            'Back To Albums',
+        '<div style="text-align: center;">',
+          '<button style="margin:5px 0 10px 20px;" onclick="listAlbums()">',
+            'Back To Directory',
           '</button>',
         '</div>',
-        '<h2>',
-          'Album: ' + albumName,
-        '</h2>',
-        message,
+        '<div style="text-align: center;">',
+          '<h2>',
+            'Album: ' + albumName,
+          '</h2>',
+          message,
+        '</div>',
         '<div>',
           getHtml(photos),
         '</div>',
-        '<h2>',
-          'End of Album: ' + albumName,
-        '</h2>',
-        '<div>',
-          '<button onclick="listAlbums()">',
-            'Back To Albums',
-          '</button>',
+        '<div style="text-align: center;">',
+          '<h2>',
+            'End of Album: ' + albumName,
+          '</h2>',
+          '<div>',
+            '<button style="margin:5px 0 10px 20px;" onclick="listAlbums()">',
+              'Back To Directory',
+            '</button>',
+          '</div>',
         '</div>',
       ]
       document.getElementById('viewer').innerHTML = getHtml(htmlTemplate);
