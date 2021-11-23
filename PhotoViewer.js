@@ -72,22 +72,45 @@ function viewAlbum(albumName) {
       var photos = data.Contents.map(function(photo) {
         var photoKey = photo.Key;
         var photoUrl = bucketUrl + encodeURIComponent(photoKey);
+        if (photoKey.includes('_Result')){
+          console.log(photoKey);
+          return getHtml([
+            '<span>',
+              //Div for image
+              '<div style="padding-left: 105px;" >',
+                '<br/>',
+                '<img style="width:225px;height:225px;" src="' + photoUrl + '"/>',
+                
+              '</div>',
+              //Div for image name
+              '<div style="padding-left: 105px;" >',
+                '<span>',
+                  photoKey.replace(albumPhotosKey, ''),
+                '</span>',
+              '</div>',
+            '</span>',
+          ]);
+        } else if (photoKey.includes('image')){
         return getHtml([
           '<span>',
-            '<div>',
+            //Div for image
+            '<div style="padding-left: 25px; padding-upper: 250px;" >',
               '<br/>',
-              '<img style="width:128px;height:128px;" src="' + photoUrl + '"/>',
+              '<img style="width:225px;height:225px;" src="' + photoUrl + '"/>',
+              
             '</div>',
-            '<div>',
+            //Div for image name
+            '<div style="padding-left: 25px;" >',
               '<span>',
                 photoKey.replace(albumPhotosKey, ''),
               '</span>',
             '</div>',
           '</span>',
         ]);
+      }
       });
       var message = photos.length ?
-        '<p>The following photos are present.</p>' :
+        '<p style ="padding-bottom:50px;">The following photos are present.</p>' :
         '<p>There are no photos in this album.</p>';
       var htmlTemplate = [
         '<div style="text-align: center;">',
