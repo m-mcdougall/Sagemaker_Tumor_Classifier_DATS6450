@@ -84,7 +84,7 @@ function viewAlbum(albumName) {
                 '<span>',
                   //Div for image
                   '<div style="padding-left: 25px; padding-upper: 250px; padding-lower: 250px;text-align: center;" >',
-                    '<hr style="border-width:10px">',
+                    //'<hr style="border-width:10px">',
                     '<img style="padding:40px;width:225px;height:225px;" src="' + photoUrl + '"/>',
                     '<img style="padding:40px;width:225px;height:225px;" src="' + photoUrlResults + '"/>',
                   '</div>',
@@ -130,7 +130,7 @@ function viewAlbum(albumName) {
           '<img style="padding:40px;width:225px;height:225px;" src="' + conf_table + '"/>',
           '<img style="padding:40px;width:500px;height:300px;" src="' + conf_table + '"/>',
           '<img style="padding:40px;width:300px;height:300px;" src="' + confuse_mat + '"/>',
-
+          '<hr style="border-width:10px">',
 
 
         '</div>',
