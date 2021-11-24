@@ -77,7 +77,7 @@ function viewAlbum(albumName) {
 
         if (photoKey.includes('image')){
           if (!photoKey.includes('_Result')){
-              //console.log(photoUrl);
+              console.log(photoUrl);
               //console.log(photoUrlResults);
 
               return getHtml([
@@ -99,58 +99,40 @@ function viewAlbum(albumName) {
             }
           }
       });//Photos
-
-      var topAnalysis = data.Contents.map(function(photo) {
-        
-        var photoKey = photo.Key;
-        var photoUrl = bucketUrl + encodeURIComponent(photoKey);
-        
-        console.log(photoKey.includes('con'))
-        console.log(photoKey[photoKey.includes('table')])
-
-        if (photoKey.includes('con') | photoKey.includes('table')){
-              //console.log(photoKey);
-              return getHtml([
-                '<span>',
-                  //Div for image
-                  '<div style="padding-left: 25px; padding-upper: 250px; padding-lower: 250px;text-align: center;" >',
-                    '<hr style="border-width:10px">',
-                    '<img style="padding:40px;width:225px;height:225px;" src="' + photoUrl + '"/>',
-                    '<img style="padding:40px;width:225px;height:225px;" src="' + photoUrl + '"/>',
-                  '</div>',
-                  //Div for image name
-                  //'<div style="padding-left: 25px;" >',
-                   // '<span>',
-                    //  photoKey.replace(albumPhotosKey, ''),
-                   // '</span>',
-                  //'</div>',
-                '</span>',
-              ]);
-            }
-  
-      });//Top Analysis
+      
+      //Photos for the Overall analysis report
+      var direct = data.Contents[0].Key;
+      var confuse_mat = bucketUrl + encodeURIComponent(direct + 'confusion.jpg');
+      var conf_table = bucketUrl + encodeURIComponent(direct + 'table.jpg');
 
 
       var message = photos.length ?
-        '<p style ="padding-bottom:50px;">The following photos are present.</p>' :
+        '<p style ="padding-bottom:50px;">Analysis indicates the following results:</p>' :
         '<p>There are no photos in this album.</p>';
       var htmlTemplate = [
         '<div style="text-align: center;">',
           '<button style="margin:5px 0 10px 20px;" onclick="listAlbums()">',
-            'Back To Directory',
+            'Return To Directory',
           '</button>',
         '</div>',
         '<div style="text-align: center;">',
           
           '<h2>',
-            'Album: ' + albumName,
+            'Analysis Report: ' + albumName,
           '</h2>',
+          '<br>',
           message,
         '</div>',
 
-        '<div>',
+        '<div style="padding-left: 25px; padding-upper: 10px; padding-lower: 50px;text-align: center;">',
         '<br>',
-          getHtml(topAnalysis),
+           /// HERE for the Top
+          '<img style="padding:40px;width:225px;height:225px;" src="' + conf_table + '"/>',
+          '<img style="padding:40px;width:500px;height:300px;" src="' + conf_table + '"/>',
+          '<img style="padding:40px;width:300px;height:300px;" src="' + confuse_mat + '"/>',
+
+
+
         '</div>',
 
         '<div>',
@@ -159,11 +141,11 @@ function viewAlbum(albumName) {
         '</div>',
         '<div style="text-align: center;">',
           '<h2>',
-            'End of Album: ' + albumName,
+            'End of Report: ' + albumName,
           '</h2>',
           '<div>',
             '<button style="margin:5px 0 10px 20px;" onclick="listAlbums()">',
-              'Back To Directory',
+              'Return To Directory',
             '</button>',
           '</div>',
         '</div>',
