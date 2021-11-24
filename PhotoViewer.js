@@ -74,32 +74,12 @@ function viewAlbum(albumName) {
         var photoKey = photo.Key;
         var photoUrl = bucketUrl + encodeURIComponent(photoKey);
         var photoUrlResults = bucketUrl + encodeURIComponent(photoKey.slice(0,-4)+'_Results.jpg');
-        var firstPhoto =  data.Contents[2].Key;
-        console.log(data.Contents[2].Key);
 
         if (photoKey.includes('image')){
           if (!photoKey.includes('_Result')){
-            if (photoKey.includes(firstPhoto)){
-              console.log(photoUrl);
-              console.log(photoUrlResults);
-              return getHtml([
-                '<span>',
-                  //Div for image
-                  '<div style="padding-left: 25px; padding-upper: 250px; padding-lower: 250px;text-align: center;" >',
-                    '<hr style="border-width:10px">',
-                    '<img style="padding:40px;width:225px;height:225px;" src="' + photoUrl + '"/>',
-                    '<img style="padding:40px;width:225px;height:225px;" src="' + photoUrl + '"/>',
-                    '<img style="padding:40px;width:225px;height:225px;" src="' + photoUrlResults + '"/>',
-                  '</div>',
-                  //Div for image name
-                  //'<div style="padding-left: 25px;" >',
-                   // '<span>',
-                    //  photoKey.replace(albumPhotosKey, ''),
-                   // '</span>',
-                  //'</div>',
-                '</span>',
-              ]);
-            } else{
+              //console.log(photoUrl);
+              //console.log(photoUrlResults);
+
               return getHtml([
                 '<span>',
                   //Div for image
@@ -117,9 +97,40 @@ function viewAlbum(albumName) {
                 '</span>',
               ]);
             }
-        }
-      }
-      });
+          }
+      });//Photos
+
+      var topAnalysis = data.Contents.map(function(photo) {
+        
+        var photoKey = photo.Key;
+        var photoUrl = bucketUrl + encodeURIComponent(photoKey);
+        
+        console.log(photoKey.includes('con'))
+        console.log(photoKey[photoKey.includes('table')])
+
+        if (photoKey.includes('con') | photoKey.includes('table')){
+              //console.log(photoKey);
+              return getHtml([
+                '<span>',
+                  //Div for image
+                  '<div style="padding-left: 25px; padding-upper: 250px; padding-lower: 250px;text-align: center;" >',
+                    '<hr style="border-width:10px">',
+                    '<img style="padding:40px;width:225px;height:225px;" src="' + photoUrl + '"/>',
+                    '<img style="padding:40px;width:225px;height:225px;" src="' + photoUrl + '"/>',
+                  '</div>',
+                  //Div for image name
+                  //'<div style="padding-left: 25px;" >',
+                   // '<span>',
+                    //  photoKey.replace(albumPhotosKey, ''),
+                   // '</span>',
+                  //'</div>',
+                '</span>',
+              ]);
+            }
+  
+      });//Top Analysis
+
+
       var message = photos.length ?
         '<p style ="padding-bottom:50px;">The following photos are present.</p>' :
         '<p>There are no photos in this album.</p>';
@@ -136,6 +147,12 @@ function viewAlbum(albumName) {
           '</h2>',
           message,
         '</div>',
+
+        '<div>',
+        '<br>',
+          getHtml(topAnalysis),
+        '</div>',
+
         '<div>',
         '<br>',
           getHtml(photos),
