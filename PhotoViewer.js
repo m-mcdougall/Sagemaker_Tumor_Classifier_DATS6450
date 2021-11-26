@@ -73,11 +73,11 @@ function viewAlbum(albumName) {
         
         var photoKey = photo.Key;
         var photoUrl = bucketUrl + encodeURIComponent(photoKey);
-        var photoUrlResults = bucketUrl + encodeURIComponent(photoKey.slice(0,-4)+'_Results.jpg');
+        var photoUrlResults = bucketUrl + encodeURIComponent(photoKey.slice(0,-8)+'_pie.jpg');
 
         if (photoKey.includes('image')){
-          if (!photoKey.includes('_Result')){
-              console.log(photoUrl);
+          if (!photoKey.includes('_pie')){
+              //console.log(photoUrl);
               //console.log(photoUrlResults);
 
               return getHtml([
@@ -85,8 +85,8 @@ function viewAlbum(albumName) {
                   //Div for image
                   '<div style="padding-left: 25px; padding-upper: 250px; padding-lower: 250px;text-align: center;" >',
                     //'<hr style="border-width:10px">',
-                    '<img style="padding:40px;width:225px;height:225px;" src="' + photoUrl + '"/>',
-                    '<img style="padding:40px;width:225px;height:225px;" src="' + photoUrlResults + '"/>',
+                    '<img style="padding:40px;width:300px;height:300px;" src="' + photoUrl + '"/>',
+                    '<img style="padding:40px;width:380px;height:300px;" src="' + photoUrlResults + '"/>',
                   '</div>',
                   //Div for image name
                   //'<div style="padding-left: 25px;" >',
@@ -101,13 +101,11 @@ function viewAlbum(albumName) {
       });//Photos
       
       //Photos for the Overall analysis report
-      var direct = data.Contents[0].Key;
-      var confuse_mat = bucketUrl + encodeURIComponent(direct + 'confusion.jpg');
+      var direct = data.Contents[0].Key.slice(0,10);
       var conf_table = bucketUrl + encodeURIComponent(direct + 'table.jpg');
 
-
       var message = photos.length ?
-        '<p style ="padding-bottom:50px;">Analysis indicates the following results:</p>' :
+        '<p style ="padding-bottom:10px;">Analysis indicates the following results:</p>' :
         '<p>There are no photos in this album.</p>';
       var htmlTemplate = [
         '<div style="text-align: center;">',
@@ -124,17 +122,15 @@ function viewAlbum(albumName) {
           message,
         '</div>',
 
-        '<div style="padding-left: 25px; padding-upper: 10px; padding-lower: 50px;text-align: center;">',
+        '<div style="padding-left: 25px; padding-upper: 10px; padding-lower: 10px;text-align: center;">',
         '<br>',
-           /// HERE for the Top
-          '<img style="padding:40px;width:225px;height:225px;" src="' + conf_table + '"/>',
-          '<img style="padding:40px;width:500px;height:300px;" src="' + conf_table + '"/>',
-          '<img style="padding:40px;width:300px;height:300px;" src="' + confuse_mat + '"/>',
+           /// Top image Div
+          '<img style="padding:40px;width:2px;height:2px;" src="' + conf_table + '"/>',
+          '<img style="padding:10px;" src="' + conf_table + '"/>',
           '<hr style="border-width:10px">',
-
-
         '</div>',
-
+        
+        //Photo div
         '<div>',
         '<br>',
           getHtml(photos),
