@@ -12,12 +12,12 @@ Brain tumour classification images sourced from the MRI Brain Tumor Classificati
 ## Running the Code
 
 To generate the data for yourself, run the scripts in the following order:  
-1. On Google Collab, run the following scripts from the Training_Models_on_Colab directory:
-  1a. Brain_Tumor_Load_Data.ipynb
-  1b. Brain_Tumor_ResNet50.ipynb
-  1c. Brain_Tumor_VGG16.ipynb
-  1d. Brain_Tumor_Xception.ipynb
-  1e. Brain_Tumor_Combine_Three_Models.ipynb
+1. On Google Collab, run the following scripts from the Training_Models_on_Colab directory:  
+  1a. Brain_Tumor_Load_Data.ipynb  
+  1b. Brain_Tumor_ResNet50.ipynb  
+  1c. Brain_Tumor_VGG16.ipynb  
+  1d. Brain_Tumor_Xception.ipynb  
+  1e. Brain_Tumor_Combine_Three_Models.ipynb  
 2. Create 3 AWS S3 buckets for models, testing images and results
 3. Load generated models into 1st S3 Bucket
 4. Load testing images form Small_test_images directory into 2nd S3 bucket
