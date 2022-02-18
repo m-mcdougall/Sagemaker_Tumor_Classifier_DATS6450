@@ -1,0 +1,24 @@
+#Log into your ec2 with MobaXterm
+#You can probably use a different ssh client, but I haven’t tested with others.
+
+
+#In root, execute the following code:
+mkdir notebooks
+pip install jupyter   #Note: this may be pip3 depending on your ec2 version
+
+#Add jupyter location to your PATH
+echo "PATH=$PATH://home/ubuntu/.local/bin" >> .bashrc
+source ~/.bashrc
+
+#Launch notebook
+cd notebooks
+jupyter notebook --ip=* --allow_origin=*
+
+
+#With notebook running, modify the following code and run it **in a different mobaxterm tab**
+#Start ssh tunneling
+ssh -NL 8888:localhost:8888 [ubuntu/ec2-user]@[your Public IPv4 address] -i [the path to your private key]
+
+
+#Open notebooks in a browser
+#Copy the url from the first mobaxterm tab, and it should work!
